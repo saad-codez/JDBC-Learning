@@ -8,7 +8,9 @@ public class Main {
     static void main() {
         //creating the studentRepo object to call teh createUser()
         StudentRepository studentRepository = new StudentRepository();
-        studentRepository.createUser();
+        //studentRepository.createUser();
+       // studentRepository.updateUser();
+        studentRepository.deleteUser();
 
     }
 }
