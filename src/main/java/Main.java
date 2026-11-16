@@ -1,8 +1,21 @@
+import com.repository.StudentRepository;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class Main {
     static void main() {
-        System.out.println("Learning JDBC");
+        //creating the studentRepo object to call teh createUser()
+        StudentRepository studentRepository = new StudentRepository();
+        studentRepository.createUser();
+
     }
 }
 
+// to connect with db
+// url
+// username
+//password
 
 // jdbc:mysql://localhost:3306/
