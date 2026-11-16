@@ -1,6 +1,7 @@
 package com.repository;
 
 import com.model.Student;
+import com.mysql.cj.protocol.Resultset;
 
 import java.sql.*;
 
@@ -17,7 +18,7 @@ public class StudentRepository {
 
             //creating sql query
             String sql = "insert INTO student(name,age,email)" +
-                    "values('Alamgir',22,'alamgir26@gmail.com')";
+                    "values('Muwahhid',24,'muwahhid26@gmail.com')";
 
             // to pass the sql query from java to mysql
             Statement statement = connection.createStatement(); //Statement is used to wrap the sql string and pass it to mysql db
@@ -73,21 +74,36 @@ public class StudentRepository {
     }
 
     public void getUserById() throws SQLException {
-        Connection connection = DriverManager.getConnection(url, username,password);
+        Connection connection = DriverManager.getConnection(url, username, password);
         Statement statement = connection.createStatement();
         String sql = "select id, name, age, email from student" +
                 " where id = 3";
         ResultSet resultSet = statement.executeQuery(sql);
         resultSet.next();
-      Student student = mapRow(resultSet);
+        Student student = mapRow(resultSet);
         System.out.println(student);
+        connection.close();
+
+    }
+
+    public void getAllUsers() throws SQLException {
+        Connection connection = DriverManager.getConnection(url, username, password);
+        Statement statement = connection.createStatement();
+
+        String sql = "select id, name, age, email from student";
+
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        while (resultSet.next()) {
+            Student student = mapRow(resultSet);
+            System.out.println(student);
+        }
         connection.close();
 
     }
 
     private Student mapRow(ResultSet resultSet) throws SQLException {
         Student student = new Student();
-
         student.setId(resultSet.getInt("id"));
         student.setName(resultSet.getString("name"));
         student.setAge(resultSet.getInt("age"));
@@ -95,6 +111,7 @@ public class StudentRepository {
 
         return student;
     }
+
 
 }
 

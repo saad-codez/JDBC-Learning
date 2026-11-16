@@ -11,7 +11,8 @@ public class Main {
         //studentRepository.createUser();
        // studentRepository.updateUser();
        // studentRepository.deleteUser();
-        studentRepository.getUserById();
+      //  studentRepository.getUserById();
+        studentRepository.getAllUsers();
 
     }
 }
