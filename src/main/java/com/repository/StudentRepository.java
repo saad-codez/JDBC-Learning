@@ -1,9 +1,8 @@
 package com.repository;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import com.model.Student;
+
+import java.sql.*;
 
 public class StudentRepository {
     String url = "jdbc:mysql://localhost:3306/studentdb";
@@ -39,9 +38,9 @@ public class StudentRepository {
 
     public void updateUser() {
 
-        try{
+        try {
             Connection connection = DriverManager.getConnection(url, username, password);
-            String sql  = "update student set age = 24 where id = 1";
+            String sql = "update student set age = 24 where id = 1";
             Statement statement = connection.createStatement();
             int result = statement.executeUpdate(sql);
             if (result != 0) {
@@ -49,6 +48,7 @@ public class StudentRepository {
             } else {
                 System.out.println("Failed to Update");
             }
+            connection.close();
         } catch (SQLException e) {
             System.out.println("Failed: " + e.getMessage());
         }
@@ -66,13 +66,37 @@ public class StudentRepository {
             } else {
                 System.out.println("Deletion failed!");
             }
+            connection.close();
         } catch (SQLException e) {
-            System.out.println("FAILED: "+ e.getMessage());
+            System.out.println("FAILED: " + e.getMessage());
         }
-}
+    }
 
+    public void getUserById() throws SQLException {
+        Connection connection = DriverManager.getConnection(url, username,password);
+        Statement statement = connection.createStatement();
+        String sql = "select id, name, age, email from student" +
+                " where id = 3";
+        ResultSet resultSet = statement.executeQuery(sql);
+        resultSet.next();
+      Student student = mapRow(resultSet);
+        System.out.println(student);
+        connection.close();
 
     }
+
+    private Student mapRow(ResultSet resultSet) throws SQLException {
+        Student student = new Student();
+
+        student.setId(resultSet.getInt("id"));
+        student.setName(resultSet.getString("name"));
+        student.setAge(resultSet.getInt("age"));
+        student.setEmail(resultSet.getString("email"));
+
+        return student;
+    }
+
+}
 
 
 

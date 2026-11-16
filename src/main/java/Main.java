@@ -5,12 +5,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Main {
-    static void main() {
+    static void main() throws SQLException {
         //creating the studentRepo object to call teh createUser()
         StudentRepository studentRepository = new StudentRepository();
         //studentRepository.createUser();
        // studentRepository.updateUser();
-        studentRepository.deleteUser();
+       // studentRepository.deleteUser();
+        studentRepository.getUserById();
 
     }
 }
