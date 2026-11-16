@@ -12,7 +12,8 @@ public class Main {
        // studentRepository.updateUser();
        // studentRepository.deleteUser();
       //  studentRepository.getUserById();
-        studentRepository.getAllUsers();
+       // studentRepository.getAllUsers();
+        studentRepository.completeCRUD();
 
     }
 }

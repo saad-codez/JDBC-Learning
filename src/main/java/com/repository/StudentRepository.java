@@ -101,6 +101,22 @@ public class StudentRepository {
         connection.close();
 
     }
+    public void completeCRUD() throws SQLException {
+        // execute() --> can perform anything; returns boolean, true(fetch data), if false(insert, update, delete)
+        Connection connection = DriverManager.getConnection(url,username, password);
+        Statement statement = connection.createStatement();
+        String sql = "update student set age = 23 where id = 4"; // this is update; returns false
+
+        boolean execute = statement.execute(sql);
+
+        if (execute) {
+            ResultSet resultSet = statement.getResultSet();
+            System.out.println("Fetched Data");
+        } else {
+            int rowsAffected = statement.getUpdateCount();
+            System.out.println("Performed Insert, Update, Delete");
+        }
+    }
 
     private Student mapRow(ResultSet resultSet) throws SQLException {
         Student student = new Student();
