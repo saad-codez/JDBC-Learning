@@ -1,3 +1,4 @@
+import com.model.Student;
 import com.repository.StudentRepository;
 
 import java.sql.Connection;
@@ -8,12 +9,12 @@ public class Main {
     static void main() throws SQLException {
         //creating the studentRepo object to call teh createUser()
         StudentRepository studentRepository = new StudentRepository();
-        //studentRepository.createUser();
-       // studentRepository.updateUser();
-       // studentRepository.deleteUser();
-      //  studentRepository.getUserById();
-       // studentRepository.getAllUsers();
-        studentRepository.completeCRUD();
+        studentRepository.createStudent(new Student("Ahmad", 21, "ahd@gmail.com"));
+       // studentRepository.updateStudent();
+       // studentRepository.deleteStudent();
+      //  studentRepository.getStudentById();
+       // studentRepository.getAllStudents();
+       // studentRepository.completeCRUD();
 
     }
 }

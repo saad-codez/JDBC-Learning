@@ -10,34 +10,64 @@ public class StudentRepository {
     String username = "saad";
     String password = "Saadhero@26";
 
-    public void createUser() {
-        try {
-            //driver manager helps us to get connected to mysql and bring the path to connection object
-            Connection connection = DriverManager.getConnection(url, username, password);
-            System.out.println("Connection to MySQL DataBase SUCCESSFUL!");
+    public void createStudent(Student student) {
+        String sql = """
+                insert into student(name,age,email) 
+                values(?,?,?)
+                """;
 
-            //creating sql query
-            String sql = "insert INTO student(name,age,email)" +
-                    "values('Muwahhid',24,'muwahhid26@gmail.com')";
 
-            // to pass the sql query from java to mysql
-            Statement statement = connection.createStatement(); //Statement is used to wrap the sql string and pass it to mysql db
-            int result = statement.executeUpdate(sql); //execute();general purpose, executeQuery() used to (Select)
-            if (result == 1) {
-                System.out.println("Update Successful");
+        try (
+                Connection connection = DriverManager.getConnection(url, username, password);
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+        ) {
+            preparedStatement.setString(1, student.getName());
+            preparedStatement.setInt(2,student.getAge());
+            preparedStatement.setString(3, student.getEmail());
+
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected == 1) {
+                System.out.println("Student Created");
             } else {
-                System.out.println("Failed to Update the table!");
+                System.out.println("Failed to Create a Student");
             }
 
 
-            connection.close();
         } catch (SQLException e) {
-            System.out.println("Failed: " + e.getMessage());
+            e.getStackTrace();
         }
-
     }
 
-    public void updateUser() {
+//    public void createStudent() {
+//        try {
+//            //driver manager helps us to get connected to mysql and bring the path to connection object
+//            Connection connection = DriverManager.getConnection(url, username, password);
+//            System.out.println("Connection to MySQL DataBase SUCCESSFUL!");
+//
+//            //creating sql query
+//            String sql = "insert INTO student(name,age,email)" +
+//                    "values('Muwahhid',24,'muwahhid26@gmail.com')";
+//
+//            // to pass the sql query from java to mysql
+//            Statement statement = connection.createStatement(); //Statement is used to wrap the sql string and pass it to mysql db
+//            int result = statement.executeUpdate(sql); //execute();general purpose, executeQuery() used to (Select)
+//            if (result == 1) {
+//                System.out.println("Update Successful");
+//            } else {
+//                System.out.println("Failed to Update the table!");
+//            }
+//
+//
+//            connection.close();
+//        } catch (SQLException e) {
+//            System.out.println("Failed: " + e.getMessage());
+//        }
+//
+//    }
+
+    public void updateStudent() {
 
         try {
             Connection connection = DriverManager.getConnection(url, username, password);
@@ -56,7 +86,7 @@ public class StudentRepository {
 
     }
 
-    public void deleteUser() {
+    public void deleteStudent() {
         try {
             Connection connection = DriverManager.getConnection(url, username, password);
             String sql = "delete from student where id = 2";
@@ -73,7 +103,7 @@ public class StudentRepository {
         }
     }
 
-    public void getUserById() throws SQLException {
+    public void getStudentById() throws SQLException {
         Connection connection = DriverManager.getConnection(url, username, password);
         Statement statement = connection.createStatement();
         String sql = "select id, name, age, email from student" +
@@ -86,7 +116,7 @@ public class StudentRepository {
 
     }
 
-    public void getAllUsers() throws SQLException {
+    public void getAllStudents() throws SQLException {
         Connection connection = DriverManager.getConnection(url, username, password);
         Statement statement = connection.createStatement();
 
