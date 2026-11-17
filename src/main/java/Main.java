@@ -12,8 +12,8 @@ public class Main {
       //  studentRepository.createStudent(new Student("Ahmad", 21, "ahd@gmail.com"));
        // studentRepository.updateStudent(new Student("Wathiq", 21, "wathiq@gmail.com"),5);
        // studentRepository.deleteStudent(4);
-        studentRepository.getStudentById(3);
-       // studentRepository.getAllStudents();
+        //studentRepository.getStudentById(3);
+        studentRepository.getAllStudents();
        // studentRepository.completeCRUD();
 
     }

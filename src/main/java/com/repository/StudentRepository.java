@@ -5,6 +5,8 @@ import com.mysql.cj.protocol.Resultset;
 import org.w3c.dom.ls.LSOutput;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StudentRepository {
     String url = "jdbc:mysql://localhost:3306/studentdb";
@@ -194,6 +196,8 @@ public class StudentRepository {
     }
 
     public void getAllStudents() throws SQLException {
+
+        List<Student> studentList = new ArrayList<>();
         Connection connection = DriverManager.getConnection(url, username, password);
         Statement statement = connection.createStatement();
 
@@ -203,6 +207,7 @@ public class StudentRepository {
 
         while (resultSet.next()) {
             Student student = mapRow(resultSet);
+            studentList.add(student);
             System.out.println(student);
         }
         connection.close();
