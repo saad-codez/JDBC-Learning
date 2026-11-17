@@ -172,17 +172,25 @@ public class StudentRepository {
 //        }
 //    }
 
-    public void getStudentById() throws SQLException {
-        Connection connection = DriverManager.getConnection(url, username, password);
-        Statement statement = connection.createStatement();
-        String sql = "select id, name, age, email from student" +
-                " where id = 3";
-        ResultSet resultSet = statement.executeQuery(sql);
-        resultSet.next();
-        Student student = mapRow(resultSet);
-        System.out.println(student);
-        connection.close();
+    public void getStudentById(int id) {
+        try {
+            Connection connection = DriverManager.getConnection(url, username, password);
+            String sql = """
+                    select id, name, age, email from student
+                    where id = ?
+                    """;
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
+            preparedStatement.setInt(1,id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            Student student = mapRow(resultSet);
+            System.out.println(student);
+            connection.close();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void getAllStudents() throws SQLException {
