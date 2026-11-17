@@ -9,9 +9,9 @@ public class Main {
     static void main() throws SQLException {
         //creating the studentRepo object to call teh createUser()
         StudentRepository studentRepository = new StudentRepository();
-        studentRepository.createStudent(new Student("Ahmad", 21, "ahd@gmail.com"));
-       // studentRepository.updateStudent();
-       // studentRepository.deleteStudent();
+      //  studentRepository.createStudent(new Student("Ahmad", 21, "ahd@gmail.com"));
+       // studentRepository.updateStudent(new Student("Wathiq", 21, "wathiq@gmail.com"),5);
+        studentRepository.deleteStudent(4);
       //  studentRepository.getStudentById();
        // studentRepository.getAllStudents();
        // studentRepository.completeCRUD();
